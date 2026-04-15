@@ -26,13 +26,14 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...inputs, recentWorkouts: history }),
       })
-      if (!res.ok) throw new Error('Error al generar el entrenamiento')
-      const result: WorkoutResult = await res.json()
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? 'Error al generar el entrenamiento')
+      const result: WorkoutResult = data
       setWorkout(result)
       saveWorkout(result)
       setHistory(getHistory())
-    } catch {
-      setError('No se pudo generar el entrenamiento. Intenta de nuevo.')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo generar el entrenamiento.')
     } finally {
       setLoading(false)
     }
@@ -40,7 +41,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
           <div className="w-8 h-8 bg-[#FC4C02] rounded-lg flex items-center justify-center">
@@ -49,18 +49,14 @@ export default function Home() {
             </svg>
           </div>
           <div>
-            <h1 className="text-lg font-bold text-gray-900 leading-none">Entrenador Ciclista</h1>
-            <p className="text-xs text-gray-400">Powered by IA</p>
+            <h1 className="text-lg font-bold text-gray-900 leading-none">Entrenador Personal IA</h1>
+            <p className="text-xs text-gray-400">Ciclismo · Running · Fuerza</p>
           </div>
         </div>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
-        <WorkoutForm
-          recentWorkoutsCount={history.length}
-          onSubmit={handleGenerate}
-          loading={loading}
-        />
+        <WorkoutForm onSubmit={handleGenerate} loading={loading} />
 
         {error && (
           <div className="bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl px-4 py-3">

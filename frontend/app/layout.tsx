@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Entrenador Ciclista IA",
-  description: "Tu entrenador personal de ciclismo con inteligencia artificial",
+  title: "Entrenador Personal IA",
+  description: "Tu entrenador personal de ciclismo, running y fuerza con inteligencia artificial",
 };
 
 export default function RootLayout({

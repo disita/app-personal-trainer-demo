@@ -17,6 +17,7 @@ export function saveWorkout(result: WorkoutResult): void {
   const history = getHistory()
   const record: WorkoutRecord = {
     date: new Date().toISOString(),
+    sport: result.sport,
     tipo: result.tipo,
     duracion: result.duracion,
     intensidad: result.intensidad,

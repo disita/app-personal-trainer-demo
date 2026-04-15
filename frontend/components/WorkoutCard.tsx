@@ -1,5 +1,11 @@
 import type { WorkoutResult } from '@/types'
 
+const SPORT_ICONS: Record<string, string> = {
+  ciclismo: '🚴',
+  running: '🏃',
+  fuerza: '🏋️',
+}
+
 interface Props {
   workout: WorkoutResult
 }
@@ -8,7 +14,10 @@ export default function WorkoutCard({ workout }: Props) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4">
       <div className="flex items-start justify-between gap-4">
-        <h2 className="text-xl font-bold text-gray-900">{workout.tipo}</h2>
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">{SPORT_ICONS[workout.sport] ?? '💪'}</span>
+          <h2 className="text-xl font-bold text-gray-900">{workout.tipo}</h2>
+        </div>
         <span className="shrink-0 text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-full">
           Guardado
         </span>
