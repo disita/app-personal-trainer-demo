@@ -66,7 +66,7 @@ export default function WorkoutForm({ onSubmit, loading }: Props) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const metrics: PerformanceMetrics = { fitnessLevel }
-    if (ftp && !isNaN(Number(ftp))) metrics.ftp = Number(ftp)
+    if (!isNaN(Number(ftp)) && Number(ftp) > 0) metrics.ftp = Number(ftp)
     if (paceTarget.trim()) metrics.paceTarget = paceTarget.trim()
     onSubmit({ sport, availableMinutes: minutes, fatigueLevel: fatigue, goal, metrics })
   }

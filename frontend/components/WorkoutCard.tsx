@@ -1,10 +1,5 @@
+import { SPORT_ICONS } from '@/lib/constants'
 import type { WorkoutResult } from '@/types'
-
-const SPORT_ICONS: Record<string, string> = {
-  ciclismo: '🚴',
-  running: '🏃',
-  fuerza: '🏋️',
-}
 
 interface Props {
   workout: WorkoutResult

@@ -1,10 +1,5 @@
-import type { SportType, WorkoutRecord } from '@/types'
-
-const SPORT_ICONS: Record<SportType, string> = {
-  ciclismo: '🚴',
-  running: '🏃',
-  fuerza: '🏋️',
-}
+import { SPORT_ICONS } from '@/lib/constants'
+import type { WorkoutRecord } from '@/types'
 
 interface Props {
   records: WorkoutRecord[]
@@ -31,8 +26,8 @@ export default function HistoryList({ records }: Props) {
         </p>
       ) : (
         <ul className="divide-y divide-gray-50">
-          {records.map((r, i) => (
-            <li key={i} className="flex items-center justify-between py-3 gap-4">
+          {records.map((r) => (
+            <li key={r.date} className="flex items-center justify-between py-3 gap-4">
               <span className="text-xs text-gray-400 w-20 shrink-0">{formatDate(r.date)}</span>
               <span className="text-base">{r.sport ? SPORT_ICONS[r.sport] : '💪'}</span>
               <span className="flex-1 text-sm font-medium text-gray-800 truncate">{r.tipo}</span>

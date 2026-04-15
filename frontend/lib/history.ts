@@ -1,6 +1,6 @@
 import type { WorkoutRecord, WorkoutResult } from '@/types'
 
-const STORAGE_KEY = 'cycling_trainer_history'
+const STORAGE_KEY = 'trainer_history'
 const MAX_RECORDS = 7
 
 export function getHistory(): WorkoutRecord[] {
@@ -23,5 +23,9 @@ export function saveWorkout(result: WorkoutResult): void {
     intensidad: result.intensidad,
   }
   const updated = [record, ...history].slice(0, MAX_RECORDS)
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+  } catch {
+    // Storage full or unavailable — silently skip persistence
+  }
 }
