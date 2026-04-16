@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import WorkoutForm from '@/components/WorkoutForm'
 import WorkoutCard from '@/components/WorkoutCard'
 import HistoryList from '@/components/HistoryList'
@@ -12,14 +12,23 @@ export default function Home() {
   const [history, setHistory] = useState<WorkoutRecord[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setHistory(getHistory())
   }, [])
 
+  // Scroll to result or error whenever either appears
+  useEffect(() => {
+    if ((error || workout) && resultRef.current) {
+      resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [error, workout])
+
   async function handleGenerate(inputs: Omit<WorkoutRequest, 'recentWorkouts'>) {
     setLoading(true)
     setError(null)
+    setWorkout(null)
     try {
       const res = await fetch('/api/workout', {
         method: 'POST',
@@ -58,9 +67,13 @@ export default function Home() {
       <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
         <WorkoutForm onSubmit={handleGenerate} loading={loading} />
 
+        {/* Anchor for auto-scroll — sits just above the result/error */}
+        <div ref={resultRef} />
+
         {error && (
-          <div className="bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl px-4 py-3">
-            {error}
+          <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-4 space-y-1">
+            <p className="font-semibold text-sm">Error al generar el entrenamiento</p>
+            <p className="text-sm">{error}</p>
           </div>
         )}
 

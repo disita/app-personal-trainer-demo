@@ -15,9 +15,9 @@ describe('WorkoutForm', () => {
       expect(screen.getByText('Fuerza')).toBeInTheDocument()
     })
 
-    it('renders time options', () => {
+    it('renders all time options', () => {
       renderForm()
-      ;[30, 45, 60, 90, 120].forEach((t) => {
+      ;[15, 20, 30, 45, 60, 75, 90, 120, 150, 180].forEach((t) => {
         expect(screen.getByText(`${t} min`)).toBeInTheDocument()
       })
     })

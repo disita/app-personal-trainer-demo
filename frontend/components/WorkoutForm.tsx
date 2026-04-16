@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import type { FatigueLevel, Goal, PerformanceMetrics, SportType, WorkoutRequest } from '@/types'
 
-const TIME_OPTIONS = [30, 45, 60, 90, 120]
+const TIME_OPTIONS = [15, 20, 30, 45, 60, 75, 90, 120, 150, 180]
 
 const SPORT_OPTIONS: { value: SportType; label: string; icon: string }[] = [
   { value: 'ciclismo', label: 'Ciclismo', icon: '🚴' },
