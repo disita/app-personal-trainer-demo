@@ -14,7 +14,8 @@ var/
 sdist/
 develop-eggs/
 .installed.cfg
-lib/
+# Python lib dirs only (not frontend/lib)
+backend/lib/
 lib64/
 .env
 .venv
@@ -42,13 +43,15 @@ yarn-error.log*
 .pnp.*
 .pnpm-store/
 
-# Environment variables
+# Environment variables (but not .example files)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 *.env
+!*.env.example
+!*.env.local.example
 
 # IDEs
 .vscode/
